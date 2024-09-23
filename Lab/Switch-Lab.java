@@ -1,21 +1,32 @@
 import java.util.Scanner;
-public class SwitchLab {
-        public static void main(String [] args) {
-            //declaração de variavel
-            int opcao;
-            //cria objeto para entrada da opção do cardapio
-            Scanner leitorOpcao = new Scanner(System.in);
-            //apresenta o cardapio
-            System.out.println(x:"1 - Pastel de carne \n");
-            System.out.println(x:"2 - coxinha de frango \n");
-            System.out.println(x:"3 - kibe com queijo \n");
-            //entrada da opção do cardapio
-            System.out.print(s:"Escolha uma opção: ");
-            opcao = leitorOpcao.nextInt();
-            //seleção da opção
-            switch(opcao)
-            {
-                case 1
-            }
+public class Main {
+    public static void main(String[] args) {
+        // Declaração de variável
+        int opcao;
+        // Cria objeto para entrada da opção do cardápio
+        Scanner leitorOpcao = new Scanner(System.in);
+        //Apresenta o cardápio
+        System.out.println("1 – Pastel de carne \n");
+        System.out.println("2 – Coxinha de frango \n");
+        System.out.println("3 – Kibe com queijo \n");
+        // Entrada da opção do cardápio
+        System.out.print("Escolha uma opção: ");
+        opcao = leitorOpcao.nextInt();
+        //Seleção da opção
+        switch(opcao) 
+        {
+            case 1:
+                System.out.println(" Pastel de carne escolhido.");
+                break;
+            case 2:
+                System.out.println(" Coxinha de frango escolhida.");
+                break;
+            case 3:
+                System.out.println(" Kibe com queijo .");
+                break;
+            default:
+                System.out.println("Opção invalida!");
+                break;
         }
+    }
 }

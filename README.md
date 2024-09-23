@@ -9,7 +9,7 @@ Turma B de Análise e Desenvolvimento de Sistemas
 **Alunos:**
 -------------
 
-Lucas Dias
+Lucas Dias &
 Pedro Perçu
 
 ------------------------

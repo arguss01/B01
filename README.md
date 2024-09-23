@@ -4,12 +4,14 @@
 
 turma B de analise e desnvolvimento de sistemas
 
-----------------
+------------
 
 **alunos**
 --------------
+
 Lucas Dias
 Pedro Perçu
+
 ------------------------
 **Dev Dúo Repository**
 ======================

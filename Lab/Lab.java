@@ -1,7 +1,7 @@
 //Lucas Dias Alves
 
 import java.util.Scanner;
-public class Main {
+public class Lab {
     public static void main(String[] args) {
         // Declaração de variável
         int opcao;
@@ -30,5 +30,6 @@ public class Main {
                 System.out.println("Opção invalida!");
                 break;
         }
+        leitorOpcao.close();
     }
 }

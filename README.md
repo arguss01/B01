@@ -2,11 +2,11 @@
 **turma:**
 ------------
 
-turma B de analise e desnvolvimento de sistemas
+Turma B de Análise e Desenvolvimento de Sistemas
 
 ------------
 
-**alunos:**
+**Alunos:**
 -------------
 
 Lucas Dias

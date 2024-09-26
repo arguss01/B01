@@ -1,4 +1,51 @@
-public class cdpo {
-    
-}
+import java.util.Scanner;
 
+public class cdpo {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        boolean continuar = true;
+
+        while (continuar) {
+        System.out.println("Bem-vindo ao cardápio da lanchonete PitDog!\n");
+
+        System.out.println("1- Produtos.");
+        System.out.println("2- Clientes.");
+        System.out.println("3- Cardápio.");
+        System.out.println("4- Sair.");
+
+        System.out.print("Escolha a opção desejada: ");
+
+        int opcao = sc.nextInt();
+
+        switch (opcao) {
+
+            case 1:
+                System.out.println("\nVocê escolheu a opção produtos.");
+                break;
+            case 2:
+                System.out.println("\nVocê escolheu a opção clientes");
+                break;
+            case 3:
+                System.out.println("\nVocê escolheu a opção cardápio");
+                break;
+            case 4:
+                System.out.println("\nVocê escolheu a opção sair, tem certeza?.");
+                System.out.println("1- Confirmar.");
+                System.out.println("2- Cancelar.");
+
+                int opcaoSair = sc.nextInt();
+
+                if (opcaoSair == 1) {
+                    System.out.println("Até mais!");
+                    continuar = false;
+                } else if (opcaoSair == 2) {
+                    System.out.println("Operação cancelada, voltando ao menu.\n");
+                }
+            default:
+                System.out.println("Opção inválida, tente novamente");
+                break;
+            }
+        }
+    }
+}

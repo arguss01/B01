@@ -1,51 +1,449 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
+class Produto {
+    String codigo;
+    String descricao;
+    double preco;
+
+    Produto(String codigo, String descricao, double preco) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+
+    public String toString() {
+        return codigo + " | " + descricao + " | " + String.format("%.2f", preco);
+    }
+}
+
+class Cliente {
+    String nome;
+    String logradouro;
+    String numero;
+    String cep;
+    String estado;
+    String telefone;
+    String nascimento;
+    boolean autorizado;
+
+    Cliente(String nome, String logradouro, String numero, String cep, String estado, String telefone, String nascimento, boolean autorizado) {
+        this.nome = nome;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.cep = cep;
+        this.estado = estado;
+        this.telefone = telefone;
+        this.nascimento = nascimento;
+        this.autorizado = autorizado;
+    }
+
+    public String toString() {
+        String autorizadoStr = autorizado ? "Sim" : "Não";
+        return nome + " | " + logradouro + " | " + numero + " | " + cep + " | " + estado + " | " + telefone + " | " + nascimento + " | Autorizado a receber mensagens: " + autorizadoStr;
+    }
+}
+
 public class cdpo {
+    static ArrayList<Produto> produtos = new ArrayList<>();
+    static ArrayList<Cliente> clientes = new ArrayList<>();
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         boolean continuar = true;
 
         while (continuar) {
-        System.out.println("Bem-vindo ao cardápio da lanchonete PitDog!\n");
+            System.out.println("\nBem-vindo ao cardápio da lanchonete PitDog!\n");
 
-        System.out.println("1- Produtos.");
-        System.out.println("2- Clientes.");
-        System.out.println("3- Cardápio.");
-        System.out.println("4- Sair.");
+            System.out.println("1- Produtos.");
+            System.out.println("2- Clientes.");
+            System.out.println("3- Cardápio.");
+            System.out.println("0- Sair.");
 
-        System.out.print("Escolha a opção desejada: ");
+            System.out.print("\nEscolha a opção desejada: ");
+            int opcao = sc.nextInt();
+            sc.nextLine(); // Limpar buffer
 
-        int opcao = sc.nextInt();
+            switch (opcao) {
 
-        switch (opcao) {
+                case 1:
+                    menuProdutos(sc);
+                    break;
 
-            case 1:
-                System.out.println("\nVocê escolheu a opção produtos.");
-                break;
-            case 2:
-                System.out.println("\nVocê escolheu a opção clientes");
-                break;
-            case 3:
-                System.out.println("\nVocê escolheu a opção cardápio");
-                break;
-            case 4:
-                System.out.println("\nVocê escolheu a opção sair, tem certeza?.");
-                System.out.println("1- Confirmar.");
-                System.out.println("2- Cancelar.");
+                case 2:
+                    menuClientes(sc);
+                    break;
 
-                int opcaoSair = sc.nextInt();
+                case 3:
+                    exibirCardapio();
+                    break;
 
-                if (opcaoSair == 1) {
-                    System.out.println("Até mais!");
-                    continuar = false;
-                } else if (opcaoSair == 2) {
-                    System.out.println("Operação cancelada, voltando ao menu.\n");
-                }
-            default:
-                System.out.println("Opção inválida, tente novamente");
-                break;
+                case 0:
+                    System.out.println("\nVocê escolheu a opção sair, tem certeza?.\n");
+                    System.out.println("1- Confirmar.");
+                    System.out.println("2- Cancelar.\n");
+
+                    int opcaoSair = sc.nextInt();
+
+                    if (opcaoSair == 1) {
+                        System.out.println("\nAté mais!\n");
+                        continuar = false;
+                    } else if (opcaoSair == 2) {
+                        System.out.println("\nOperação cancelada, voltando ao menu.\n");
+                    }
+                    break;
+
+                default:
+                    System.out.println("\nOpção inválida, tente novamente.\n");
+                    break;
             }
         }
+        sc.close();
+    }
+
+    public static void menuProdutos(Scanner sc) {
+        System.out.println("\nVocê escolheu a opção produtos.\n");
+        System.out.println("1 - Incluir.");
+        System.out.println("2 - Alterar.");
+        System.out.println("3 - Excluir.");
+        System.out.println("4 - Consultar.");
+        System.out.println("0 - Sair.\n");
+
+        int opcaoProduto = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcaoProduto) {
+            case 1:
+                incluirProduto(sc);
+                break;
+            case 2:
+                alterarProduto(sc);
+                break;
+            case 3:
+                excluirProduto(sc);
+                break;
+            case 4:
+                consultarProdutos();
+                break;
+            case 0:
+                System.out.println("\nVoltando ao menu principal...\n");
+                break;
+            default:
+                System.out.println("\nOpção inválida.\n");
+                break;
+        }
+    }
+
+    public static void incluirProduto(Scanner sc) {
+        System.out.println("\nDigite o código do produto (6 caracteres alfanuméricos): ");
+        String codigoProduto = sc.nextLine();
+        if (!codigoProduto.matches("[a-zA-Z0-9]{6}")) {
+            System.out.println("\nCódigo inválido. Deve conter exatamente 6 caracteres alfanuméricos.\n");
+            return;
+        }
+
+        System.out.println("\nDigite a descrição do produto (3 a 60 caracteres): ");
+        String descricaoProduto = sc.nextLine();
+        if (descricaoProduto.length() < 3 || descricaoProduto.length() > 60) {
+            System.out.println("\nDescrição inválida. Deve conter entre 3 e 60 caracteres.\n");
+            return;
+        }
+
+        System.out.println("\nDigite o preço do produto (positivo, com duas casas decimais): ");
+        double precoProduto = sc.nextDouble();
+        if (precoProduto <= 0) {
+            System.out.println("\nPreço inválido. Deve ser positivo.\n");
+            return;
+        }
+
+        produtos.add(new Produto(codigoProduto, descricaoProduto, precoProduto));
+        System.out.println("\nProduto cadastrado com sucesso!\n");
+    }
+
+    public static void alterarProduto(Scanner sc) {
+        if (produtos.isEmpty()) {
+            System.out.println("\nNenhum produto cadastrado.\n");
+            return;
+        }
+
+        consultarProdutos();
+        System.out.println("\nDigite o índice do produto a ser alterado: ");
+        int indice = sc.nextInt();
+        sc.nextLine(); // Limpar buffer
+
+        if (indice >= 0 && indice < produtos.size()) {
+            Produto produto = produtos.get(indice);
+            System.out.println("\nAlterando o produto: " + produto + "\n");
+
+            System.out.println("\nDigite a nova descrição do produto (3 a 60 caracteres): ");
+            String novaDescricao = sc.nextLine();
+            if (novaDescricao.length() < 3 || novaDescricao.length() > 60) {
+                System.out.println("\nDescrição inválida.\n");
+                return;
+            }
+
+            System.out.println("\nDigite o novo preço do produto (positivo, com duas casas decimais): ");
+            double novoPreco = sc.nextDouble();
+            if (novoPreco <= 0) {
+                System.out.println("\nPreço inválido.\n");
+                return;
+            }
+
+            produto.descricao = novaDescricao;
+            produto.preco = novoPreco;
+            System.out.println("\nProduto alterado com sucesso!\n");
+        } else {
+            System.out.println("\nÍndice inválido.\n");
+        }
+    }
+
+    public static void excluirProduto(Scanner sc) {
+        if (produtos.isEmpty()) {
+            System.out.println("\nNenhum produto cadastrado.\n");
+            return;
+        }
+
+        consultarProdutos();
+        System.out.println("\nDigite o índice do produto a ser excluído: ");
+        int indice = sc.nextInt();
+        sc.nextLine(); // Limpar buffer
+
+        if (indice >= 0 && indice < produtos.size()) {
+            produtos.remove(indice);
+            System.out.println("\nProduto excluído com sucesso!\n");
+        } else {
+            System.out.println("\nÍndice inválido.\n");
+        }
+    }
+
+    public static void consultarProdutos() {
+        if (produtos.isEmpty()) {
+            System.out.println("\nNenhum produto cadastrado.\n");
+            return;
+        }
+
+        for (int i = 0; i < produtos.size(); i++) {
+            System.out.println(i + " - " + produtos.get(i));
+        }
+        System.out.println(); 
+    }
+
+    public static void menuClientes(Scanner sc) {
+        System.out.println("\nVocê escolheu a opção clientes.\n");
+        System.out.println("1 - Incluir.");
+        System.out.println("2 - Alterar.");
+        System.out.println("3 - Excluir.");
+        System.out.println("4 - Consultar.");
+        System.out.println("0 - Sair.\n");
+
+        int opcaoCliente = sc.nextInt();
+        sc.nextLine(); 
+
+        switch (opcaoCliente) {
+            case 1:
+                incluirCliente(sc);
+                break;
+            case 2:
+                alterarCliente(sc);
+                break;
+            case 3:
+                excluirCliente(sc);
+                break;
+            case 4:
+                consultarClientes();
+                break;
+            case 0:
+                System.out.println("\nVoltando ao menu principal...\n");
+                break;
+            default:
+                System.out.println("\nOpção inválida.\n");
+                break;
+        }
+    }
+
+    public static void incluirCliente(Scanner sc) {
+        System.out.println("\nDigite o nome completo (CAIXA ALTA, 6 a 60 caracteres): ");
+        String nomeCliente = sc.nextLine().toUpperCase();
+        if (nomeCliente.length() < 6 || nomeCliente.length() > 60) {
+            System.out.println("\nNome inválido. Deve conter entre 6 e 60 caracteres.\n");
+            return;
+        }
+
+        System.out.println("\nDigite o logradouro (até 60 caracteres): ");
+        String logradouro = sc.nextLine();
+        if (logradouro.length() > 60) {
+            System.out.println("\nLogradouro inválido. Deve conter no máximo 60 caracteres.\n");
+            return;
+        }
+
+        System.out.println("\nDigite o número (até 4 dígitos): ");
+        String numero = sc.nextLine();
+        if (!numero.matches("\\d{1,4}")) {
+            System.out.println("\nNúmero inválido. Deve conter até 4 dígitos.\n");
+            return;
+        }
+
+        System.out.println("\nDigite o CEP (formato 99999-999): ");
+        String cep = sc.nextLine();
+        if (!cep.matches("\\d{5}-\\d{3}")) {
+            System.out.println("\nCEP inválido.\n");
+            return;
+        }
+
+        System.out.println("\nDigite o estado (2 caracteres alfabéticos): ");
+        String estado = sc.nextLine().toUpperCase();
+        if (!estado.matches("[A-Z]{2}")) {
+            System.out.println("\nEstado inválido.\n");
+            return;
+        }
+
+        System.out.println("\nDigite o telefone (formato (99) X9999-9999): ");
+        String telefone = sc.nextLine();
+        if (!telefone.matches("\\(\\d{2}\\) \\d{5}-\\d{4}")) {
+            System.out.println("\nTelefone inválido.\n");
+            return;
+        }
+
+        System.out.println("\nDigite a data de nascimento (formato dd/mm/aaaa): ");
+        String nascimento = sc.nextLine();
+        if (!nascimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            System.out.println("\nData de nascimento inválida.\n");
+            return;
+        }
+
+        System.out.println("\nAutoriza receber mensagens? (Sim/Não): ");
+        String resposta = sc.nextLine().toUpperCase();
+        boolean autorizado = resposta.equals("SIM");
+
+        clientes.add(new Cliente(nomeCliente, logradouro, numero, cep, estado, telefone, nascimento, autorizado));
+        System.out.println("\nCliente cadastrado com sucesso!\n");
+    }
+
+    public static void alterarCliente(Scanner sc) {
+        if (clientes.isEmpty()) {
+            System.out.println("\nNenhum cliente cadastrado.\n");
+            return;
+        }
+
+        consultarClientes();
+        System.out.println("\nDigite o índice do cliente a ser alterado: ");
+        int indice = sc.nextInt();
+        sc.nextLine(); 
+
+        if (indice >= 0 && indice < clientes.size()) {
+            Cliente cliente = clientes.get(indice);
+            System.out.println("\nAlterando o cliente: " + cliente + "\n");
+
+            System.out.println("\nDigite o novo nome completo (CAIXA ALTA, 6 a 60 caracteres): ");
+            String novoNome = sc.nextLine().toUpperCase();
+            if (novoNome.length() < 6 || novoNome.length() > 60) {
+                System.out.println("\nNome inválido.\n");
+                return;
+            }
+
+            System.out.println("\nDigite o novo logradouro (até 60 caracteres): ");
+            String novoLogradouro = sc.nextLine();
+            if (novoLogradouro.length() > 60) {
+                System.out.println("\nLogradouro inválido.\n");
+                return;
+            }
+
+            System.out.println("\nDigite o novo número (até 4 dígitos): ");
+            String novoNumero = sc.nextLine();
+            if (!novoNumero.matches("\\d{1,4}")) {
+                System.out.println("\nNúmero inválido.\n");
+                return;
+            }
+
+            System.out.println("\nDigite o novo CEP (formato 99999-999): ");
+            String novoCep = sc.nextLine();
+            if (!novoCep.matches("\\d{5}-\\d{3}")) {
+                System.out.println("\nCEP inválido.\n");
+                return;
+            }
+
+            System.out.println("\nDigite o novo estado (2 caracteres alfabéticos): ");
+            String novoEstado = sc.nextLine().toUpperCase();
+            if (!novoEstado.matches("[A-Z]{2}")) {
+                System.out.println("\nEstado inválido.\n");
+                return;
+            }
+
+            System.out.println("\nDigite o novo telefone (formato (99) X9999-9999): ");
+            String novoTelefone = sc.nextLine();
+            if (!novoTelefone.matches("\\(\\d{2}\\) \\d{5}-\\d{4}")) {
+                System.out.println("\nTelefone inválido.\n");
+                return;
+            }
+
+            System.out.println("\nDigite a nova data de nascimento (formato dd/mm/aaaa): ");
+            String novaDataNascimento = sc.nextLine();
+            if (!novaDataNascimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                System.out.println("\nData de nascimento inválida.\n");
+                return;
+            }
+
+            System.out.println("\nAutoriza receber mensagens? (Sim/Não): ");
+            String novaAutorizacao = sc.nextLine().toUpperCase();
+            boolean novoAutorizado = novaAutorizacao.equals("SIM");
+
+            cliente.nome = novoNome;
+            cliente.logradouro = novoLogradouro;
+            cliente.numero = novoNumero;
+            cliente.cep = novoCep;
+            cliente.estado = novoEstado;
+            cliente.telefone = novoTelefone;
+            cliente.nascimento = novaDataNascimento;
+            cliente.autorizado = novoAutorizado;
+
+            System.out.println("\nCliente alterado com sucesso!\n");
+        } else {
+            System.out.println("\nÍndice inválido.\n");
+        }
+    }
+
+    public static void excluirCliente(Scanner sc) {
+        if (clientes.isEmpty()) {
+            System.out.println("\nNenhum cliente cadastrado.\n");
+            return;
+        }
+
+        consultarClientes();
+        System.out.println("\nDigite o índice do cliente a ser excluído: ");
+        int indice = sc.nextInt();
+        sc.nextLine();
+
+        if (indice >= 0 && indice < clientes.size()) {
+            clientes.remove(indice);
+            System.out.println("\nCliente excluído com sucesso!\n");
+        } else {
+            System.out.println("\nÍndice inválido.\n");
+        }
+    }
+
+    public static void consultarClientes() {
+        if (clientes.isEmpty()) {
+            System.out.println("\nNenhum cliente cadastrado.\n");
+            return;
+        }
+
+        for (int i = 0; i < clientes.size(); i++) {
+            System.out.println(i + " - " + clientes.get(i));
+        }
+        System.out.println(); 
+    }
+
+    public static void exibirCardapio() {
+        if (produtos.isEmpty()) {
+            System.out.println("\nNenhum produto no cardápio.\n");
+            return;
+        }
+
+        System.out.println("\nCardápio:");
+        for (Produto produto : produtos) {
+            System.out.println(produto);
+        }
+        System.out.println(); 
     }
 }

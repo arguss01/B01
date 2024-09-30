@@ -63,7 +63,7 @@ public class cdpo {
 
             System.out.print("\nEscolha a opção desejada: ");
             int opcao = sc.nextInt();
-            sc.nextLine(); // Limpar buffer
+            sc.nextLine(); 
 
             switch (opcao) {
 
@@ -170,7 +170,7 @@ public class cdpo {
         consultarProdutos();
         System.out.println("\nDigite o índice do produto a ser alterado: ");
         int indice = sc.nextInt();
-        sc.nextLine(); // Limpar buffer
+        sc.nextLine(); 
 
         if (indice >= 0 && indice < produtos.size()) {
             Produto produto = produtos.get(indice);
@@ -207,7 +207,7 @@ public class cdpo {
         consultarProdutos();
         System.out.println("\nDigite o índice do produto a ser excluído: ");
         int indice = sc.nextInt();
-        sc.nextLine(); // Limpar buffer
+        sc.nextLine(); 
 
         if (indice >= 0 && indice < produtos.size()) {
             produtos.remove(indice);

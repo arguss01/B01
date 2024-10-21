@@ -1,0 +1,236 @@
+//ultimo update com janela extend JFrame//
+import java.util.Scanner;
+import javax.swing.*; 
+import java.awt.*;
+import java.awt.event.ActionEvent; 
+import java.awt.event.ActionListener; 
+
+class janela extends JFrame {
+    private static final int LIM_REG = 100; 
+    private static String[][] registrosNomes = new String[LIM_REG][3]; 
+    private static String[][] registrosProdutos = new String[LIM_REG][3]; 
+    private static int totalRegistrosNomes = 0;
+    private static int totalRegistrosProdutos = 0;
+
+    private JTextField cpfField; 
+    private JTextField nomeField;
+    private JTextField telefoneField; 
+    private JTextField produtoField; 
+    private JTextField precoField;
+    private JTextField codigoField; 
+
+    public janela(){
+        setTitle("Sistema de Cadastro"); 
+        setSize(500, 700); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setLayout(new BorderLayout()); 
+
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuCadastro = new JMenu("Cadastro de Nome"); 
+        JMenuItem menuItemCadastroNome = new JMenuItem("Cadastro de Nome"); 
+        JMenuItem menuItemListaNome = new JMenuItem("Lista de Nomes"); 
+
+        menuCadastro.add(menuItemCadastroNome);
+        menuCadastro.add(menuItemListaNome);
+
+        JMenu menuProdutos = new JMenu("Cadastro de Produtos");
+        JMenuItem menuItemCadastroProduto = new JMenuItem("Cadastro de Produto"); 
+        JMenuItem menuItemListaProdutos = new JMenuItem("Lista de Produtos");
+
+        menuProdutos.add(menuItemCadastroProduto); 
+        menuProdutos.add(menuItemListaProdutos);
+
+        menuBar.add(menuCadastro); 
+        menuBar.add(menuProdutos);  
+        setJMenuBar(menuBar); 
+
+        JPanel inputPanel = new JPanel(new GridLayout(7, 2));
+        cpfField = new JTextField(); 
+        nomeField = new JTextField(); 
+        telefoneField = new JTextField(); 
+        produtoField = new JTextField(); 
+        precoField = new JTextField(); 
+        codigoField = new JTextField(); 
+
+        inputPanel.add(new JLabel("CPF:")); 
+        inputPanel.add(cpfField); 
+        inputPanel.add(new JLabel("Nome:")); 
+        inputPanel.add(nomeField); 
+        inputPanel.add(new JLabel("Telefone:")); 
+        inputPanel.add(telefoneField); 
+        inputPanel.add(new JLabel("Produto:")); 
+        inputPanel.add(produtoField); 
+        inputPanel.add(new JLabel("Preço:")); 
+        inputPanel.add(precoField); 
+        inputPanel.add(new JLabel("Código:")); 
+        inputPanel.add(codigoField); 
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JButton incluirButton = new JButton("Incluir"); 
+        JButton alterarButton = new JButton("Alterar"); 
+
+        buttonPanel.add(incluirButton);
+        buttonPanel.add(alterarButton);
+        add(inputPanel, BorderLayout.NORTH); 
+        add(buttonPanel, BorderLayout.CENTER); 
+
+        incluirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (cpfField.isVisible()) {
+                    incluirRegistroNome();
+                } else {
+                    incluirRegistroProduto();
+                }
+            }
+        });
+
+        alterarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alterarRegistro(); 
+            }
+        });
+
+        menuItemCadastroNome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarCamposNome(); 
+            }
+        });
+
+        menuItemCadastroProduto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarCamposProduto();
+            }
+        });
+
+        menuItemListaNome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarRegistrosNomes();
+            }
+        });
+
+        menuItemListaProdutos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarRegistrosProdutos();
+            }
+        });
+
+        mostrarCamposNome();
+    }
+
+    private void mostrarCamposNome() {
+        cpfField.setVisible(true);
+        nomeField.setVisible(true); 
+        telefoneField.setVisible(true); 
+        produtoField.setVisible(false);
+        precoField.setVisible(false); 
+        codigoField.setVisible(false); 
+    }
+
+    private void mostrarCamposProduto() {
+        cpfField.setVisible(false);
+        nomeField.setVisible(false); 
+        telefoneField.setVisible(false); 
+        produtoField.setVisible(true);
+        precoField.setVisible(true); 
+        codigoField.setVisible(true); 
+    }
+
+    private void incluirRegistroNome() {
+        if (totalRegistrosNomes >= LIM_REG) {
+            JOptionPane.showMessageDialog(this, "Cadastro cheio!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        registrosNomes[totalRegistrosNomes][0] = cpfField.getText();
+        registrosNomes[totalRegistrosNomes][1] = nomeField.getText();
+        registrosNomes[totalRegistrosNomes][2] = telefoneField.getText();
+        totalRegistrosNomes++;
+        JOptionPane.showMessageDialog(this, "Registro de nome incluído com sucesso!");
+        limparCampos();
+    }
+
+    private void incluirRegistroProduto() {
+        if (totalRegistrosProdutos >= LIM_REG) {
+            JOptionPane.showMessageDialog(this, "Cadastro cheio!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        registrosProdutos[totalRegistrosProdutos][0] = produtoField.getText();
+        registrosProdutos[totalRegistrosProdutos][1] = precoField.getText();
+        registrosProdutos[totalRegistrosProdutos][2] = codigoField.getText();
+        totalRegistrosProdutos++;
+        JOptionPane.showMessageDialog(this, "Registro de produto incluído com sucesso!");
+        limparCampos();
+    }
+
+    private void alterarRegistro() {
+        String cpf = cpfField.getText();
+        int indice = buscarRegistroPorCPF(cpf);
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(this, "Registro não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        registrosNomes[indice][1] = nomeField.getText();
+        registrosNomes[indice][2] = telefoneField.getText();
+        JOptionPane.showMessageDialog(this, "Registro alterado com sucesso!");
+        limparCampos();
+    }
+
+    private void listarRegistrosNomes() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < totalRegistrosNomes; i++) {
+            sb.append("CPF: ").append(registrosNomes[i][0])
+              .append(", Nome: ").append(registrosNomes[i][1])
+              .append(", Telefone: ").append(registrosNomes[i][2]).append("\n");
+        }
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+        JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Lista de Nomes", JOptionPane.INFORMATION_MESSAGE); 
+    }
+
+    private void listarRegistrosProdutos() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < totalRegistrosProdutos; i++) {
+            sb.append("Produto: ").append(registrosProdutos[i][0])
+              .append(", Preço: ").append(registrosProdutos[i][1])
+              .append(", Código: ").append(registrosProdutos[i][2]).append("\n");
+        }
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+        JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Lista de Produtos", JOptionPane.INFORMATION_MESSAGE); 
+    }
+
+    private int buscarRegistroPorCPF(String cpf) {
+        for (int i = 0; i < totalRegistrosNomes; i++) {
+            if (registrosNomes[i][0].equals(cpf)) { 
+                return i; 
+            }
+        }
+        return -1;
+    }
+
+    private void limparCampos() {
+        cpfField.setText(""); 
+        nomeField.setText(""); 
+        telefoneField.setText(""); 
+        produtoField.setText(""); 
+        precoField.setText(""); 
+        codigoField.setText(""); 
+    }
+}
+
+public class cdpo {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            janela app = new janela();
+            app.setVisible(true);
+        });        
+        Scanner sc = new Scanner(System.in);
+        boolean continuar = true;
+    }
+}

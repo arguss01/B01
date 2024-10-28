@@ -1,0 +1,60 @@
+import java.awt.*;
+import java.util.Scanner;
+import javax.swing.*; 
+
+class janela extends JFrame {
+
+    public janela(){
+        setTitle("Sistema de Pessoa"); 
+        setSize(800, 400); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setLayout(new BorderLayout()); 
+
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuCadastro = new JMenu("Cadastro"); 
+        JMenuItem menuItemUsuários = new JMenuItem("Usuários"); 
+        JMenuItem menuItemPessoas = new JMenuItem("Pessoas"); 
+
+        menuCadastro.add(menuItemUsuários);
+        menuCadastro.add(menuItemPessoas);
+
+        JMenu menuVisualização = new JMenu("Visualização");
+        JMenuItem menuItemListaUsuários = new JMenuItem("Lista de usuário"); 
+        JMenuItem menuItemListaPessoas = new JMenuItem("Lista de Pessoas");
+
+        menuVisualização.add(menuItemListaUsuários); 
+        menuVisualização.add(menuItemListaPessoas);
+
+        JMenu menuSair = new JMenu("Sair");
+
+        menuSair.addMenuListener(new javax.swing.event.MenuListener() {
+            @Override
+            public void menuSelected(javax.swing.event.MenuEvent e) {
+                System.exit(0);
+            }
+            @Override
+            public void menuDeselected(javax.swing.event.MenuEvent e) {}
+            @Override
+            public void menuCanceled(javax.swing.event.MenuEvent e) {}
+        });
+        
+        menuBar.add(menuCadastro); 
+        menuBar.add(Box.createHorizontalStrut(50));
+        menuBar.add(menuVisualização);
+        menuBar.add(Box.createHorizontalStrut(60));
+        menuBar.add(menuSair);  
+        setJMenuBar(menuBar); 
+
+    }
+}
+public class SistemaPessoa {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            janela app = new janela();
+            app.setVisible(true);
+        });        
+        Scanner sc = new Scanner(System.in);
+        boolean continuar = true;
+    }
+}

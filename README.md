@@ -1,3 +1,5 @@
+AVA3 - Não seguiu as orientações sobre o histórico no GIT.
+
 # Dev-Duo/ B01
 **turma:**
 ------------

@@ -1,14 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class ListaUsuarios {
+public class ListaUsuarios implements Exibivel {
     private final JFrame principal;
 
     public ListaUsuarios(JFrame principal) {
         this.principal = principal;
     }
 
-    public void exibir() {
+    @Override
+    public void exibir() { 
         JDialog dialog = new JDialog(principal, "Lista de Usuários", true);
         dialog.setSize(750, 650);
         dialog.setLayout(new BorderLayout());

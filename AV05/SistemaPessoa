@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
+
+
 public class SistemaPessoa {
 
     public static void main(String[] args) {
@@ -54,6 +56,7 @@ public class SistemaPessoa {
         principal.getContentPane().add(BorderLayout.CENTER, areaTrabalho);
         principal.getContentPane().add(BorderLayout.SOUTH, painelRodape);
 
+        
         itemMenuCadastroUsuarios.addActionListener(e -> new CadastroUsuarios(principal).exibir());
         itemMenuCadastroPessoas.addActionListener(e -> new CadastroPessoas(principal).exibir());
         itemMenuVisualizacaoListaUsuarios.addActionListener(e -> new ListaUsuarios(principal).exibir());

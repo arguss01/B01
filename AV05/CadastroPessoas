@@ -1,14 +1,15 @@
-        import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 
-public class CadastroPessoas {
+public class CadastroPessoas implements Exibivel {
     private final JFrame principal;
 
     public CadastroPessoas(JFrame principal) {
         this.principal = principal;
     }
 
-    public void exibir() {
+    @Override
+    public void exibir() { 
         JDialog dialog = new JDialog(principal, "Cadastro de Pessoas", true);
         dialog.setSize(600, 300);
         dialog.setLayout(new BorderLayout());
@@ -33,7 +34,7 @@ public class CadastroPessoas {
         painelCampos.add(new JComboBox<>(new String[]{"Masculino", "Feminino"}));
 
         dialog.add(painelCampos, BorderLayout.CENTER);
-        dialog.add(new BotoesCadastro(dialog).criar(), BorderLayout.SOUTH);
+        dialog.add(new botoesCadastro(dialog).criar(), BorderLayout.SOUTH);
 
         dialog.setLocationRelativeTo(principal);
         dialog.setVisible(true);

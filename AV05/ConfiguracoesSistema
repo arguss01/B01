@@ -1,4 +1,3 @@
-package sistemapessoa;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,5 @@
 AVA3 - Não seguiu as orientações sobre o histórico no GIT.
+AVA4 - Postou após os prazos e a versão do professor.
 
 # Dev-Duo/ B01
 **turma:**

@@ -1,14 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class CadastroUsuarios {
+public class CadastroUsuarios implements Exibivel {
     private final JFrame principal;
 
     public CadastroUsuarios(JFrame principal) {
         this.principal = principal;
     }
 
-    public void exibir() {
+    @Override
+    public void exibir() { 
         JDialog dialog = new JDialog(principal, "Cadastro de Usuários", true);
         dialog.setSize(600, 300);
         dialog.setLayout(new BorderLayout());
@@ -27,7 +28,7 @@ public class CadastroUsuarios {
         painelCampos.add(new JRadioButton());
 
         dialog.add(painelCampos, BorderLayout.CENTER);
-        dialog.add(new BotoesCadastro(dialog).criar(), BorderLayout.SOUTH);
+        dialog.add(new botoesCadastro(dialog).criar(), BorderLayout.SOUTH);
 
         dialog.setLocationRelativeTo(principal);
         dialog.setVisible(true);

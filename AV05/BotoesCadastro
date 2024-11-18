@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class botoesCadastro {
+public class BotoesCadastro {
     private final JDialog dialog;
 
     public botoesCadastro(JDialog dialog) {

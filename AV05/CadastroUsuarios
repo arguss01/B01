@@ -1,36 +1,11 @@
-import javax.swing.*;
-import java.awt.*;
 
-public class CadastroUsuarios implements Exibivel {
-    private final JFrame principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    public CadastroUsuarios(JFrame principal) {
-        this.principal = principal;
-    }
-
-    @Override
-    public void exibir() { 
-        JDialog dialog = new JDialog(principal, "Cadastro de Usuários", true);
-        dialog.setSize(600, 300);
-        dialog.setLayout(new BorderLayout());
-
-        JLabel titulo = new JLabel("Cadastro de Usuários", SwingConstants.CENTER);
-        dialog.add(titulo, BorderLayout.NORTH);
-
-        JPanel painelCampos = new JPanel(new GridLayout(4, 2, 5, 5));
-        painelCampos.add(new JLabel("Usuário:"));
-        painelCampos.add(new JTextField(25));
-        painelCampos.add(new JLabel("Senha:"));
-        painelCampos.add(new JPasswordField(15));
-        painelCampos.add(new JLabel("Email:"));
-        painelCampos.add(new JTextField(30));
-        painelCampos.add(new JLabel("Ativo:"));
-        painelCampos.add(new JRadioButton());
-
-        dialog.add(painelCampos, BorderLayout.CENTER);
-        dialog.add(new botoesCadastro(dialog).criar(), BorderLayout.SOUTH);
-
-        dialog.setLocationRelativeTo(principal);
-        dialog.setVisible(true);
-    }
+public class ConfiguracoesSistema {
+    public static final String VERSAO_SISTEMA = "12.1.2024";
+    public static final String NOME_USUARIO = "denys.silva";
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yy HH:mm");
+    public static final String DATA_ACESSO = DATE_FORMAT.format(new Date());
 }

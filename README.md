@@ -1,5 +1,8 @@
 AVA3 - Não seguiu as orientações sobre o histórico no GIT.
 AVA4 - Postou após os prazos e a versão do professor.
+AVA5-1 - Não seguiu a orientação de informar o nome (mensagem) "Avaliação 5 – Method Overloading  de polimorfismo". Não conseguir localizar e avaliar.
+AVA5-2 - Não seguiu a orientação de informar o nome (mensagem) "Avaliação 5 Parcial – Interface". Não conseguir localizar e avaliar.
+
 
 # Dev-Duo/ B01
 **turma:**
